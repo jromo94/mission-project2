@@ -347,7 +347,7 @@ namespace MissionaryWebsiteP2.Controllers
 
 
                         TempData ["email"] = emailClaim.Value;
-                        TempData ["firstName"] = givenNameClaim.Value;
+                        TempData ["firstname"] = givenNameClaim.Value;
                         TempData ["lastname"] = lastNameClaim.Value;
                     }
                     return RedirectToLocal(returnUrl);

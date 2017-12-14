@@ -35,10 +35,36 @@ namespace MissionaryWebsiteP2.Controllers
                 "FROM Missions " +
                 "WHERE Missions.mission_ID = " + mission_ID);
 
+            ViewBag.missionID = mission_ID;
             ViewBag.questions = questions;
             ViewBag.missions = missions;
 
             return View(missions);
+        }
+
+        [HttpPost]
+        public ActionResult MissionPage(FormCollection answer, int? question_ID, int? mission_ID)
+        {
+            MissionQuestions myQuestion = db.MissionQuestion.Find(question_ID);
+            myQuestion.answer = answer["answer" + question_ID];
+            var fullname = TempData["firstname"].ToString() + " " + TempData["lastname"].ToString();
+            myQuestion.user_ID = fullname;
+            db.SaveChanges();       
+
+            return RedirectToAction("MissionPage", new { mission_ID = myQuestion.mission_ID });
+        }
+
+        [HttpPost]
+        public ActionResult MissionPage2(FormCollection newQuestion, int mission_ID)
+        {
+
+            MissionQuestions newQuestions = new MissionQuestions();
+            newQuestions.question = newQuestion["newQuestion"];
+            newQuestions.mission_ID = mission_ID;
+            db.MissionQuestion.Add(newQuestions);
+            db.SaveChanges();
+
+            return RedirectToAction("MissionPage", new { mission_ID = mission_ID });
         }
     }
 }

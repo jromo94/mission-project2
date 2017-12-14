@@ -12,7 +12,7 @@ namespace MissionaryWebsiteP2.Models
     {
         [Key]
         public int MissionQuestion_ID { get; set; }
-        public int? user_ID { get; set; }
+        public string user_ID { get; set; }
         public int mission_ID { get; set; }
         public string question { get; set; }
         public string answer { get; set; }

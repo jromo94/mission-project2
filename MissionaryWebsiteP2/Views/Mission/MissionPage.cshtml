@@ -40,13 +40,20 @@
             <div class="panel-heading panel-primary"></div>
             <div class="panel-body">
                 <p>@item.question</p>
-                <a href="#hidden" data-toggle="collapse" class="btn btn-primary btn-sm">Reply</a>
-                <form id="hidden" class="collapse">
-                    <textarea rows="6" cols="100">
-            Input Your Response Here!
-        </textarea><br />
-                    @Html.ActionLink("Submit", "MissionPage", "Mission", new { iMishName = @ViewBag.MishName }, new { @class = "btn btn-primary btn-sm" })
-                </form>
+                <a href="@Url.Content("#hidden" + item.MissionQuestion_ID)" data-toggle="collapse" class="btn btn-primary btn-sm">Reply</a>
+                   @using (Html.BeginForm("MissionPage", "Mission", new { answer = Request.Form[@Url.Content("answer" + item.MissionQuestion_ID)], question_ID = item.MissionQuestion_ID }, FormMethod.Post, new { id = @Url.Content("hidden" + item.MissionQuestion_ID), @class = "collapse"}))
+                   {
+                       if (item.answer == "")
+                       {
+                        <textarea id="@Url.Content("answer" + item.MissionQuestion_ID)" name="@Url.Content("answer" + item.MissionQuestion_ID)" placeholder="Write your answer here!"></textarea>
+                       }
+                       else
+                       {
+                        <textarea id="@Url.Content("answer" + item.MissionQuestion_ID)" name="@Url.Content("answer" + item.MissionQuestion_ID)">@item.answer - @item.user_ID</textarea>
+                       }
+                    <input type="submit" value="Submit" />
+
+                   }
             </div>
         </div>
     }
@@ -57,10 +64,11 @@
         Please give us some of the questions you would like to have answered! We love to hear
         what you are wanting to know more about. Thanks!
     </p>
-    <form>
-        <textarea rows="6" cols="100">
-            Input Your Questions Here!
-        </textarea><br />
-        @Html.ActionLink("Submit", "MissionPage", "Mission", new { iMishName = @ViewBag.MishName }, new { @class = "btn btn-primary btn-sm" })
-    </form>
+    @using (Html.BeginForm("MissionPage2", "Mission", new { answer = Request.Form["newQuestion"], mission_ID = ViewBag.missionID }, FormMethod.Post))
+    {
+        <textarea id="newQuestion" name="newQuestion" placeholder="Input your question here"></textarea>
+        <br />
+        <input type="submit" value="Submit" />
+    }
+    
 </div>
