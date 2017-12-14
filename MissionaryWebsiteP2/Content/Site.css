@@ -17,8 +17,38 @@
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+
+.@Url.Content("answer" + item.MissionQuestion_ID) {
+    margin: 0px;
+    width: 448px;
+    height: 98px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#newQuestion {
+    margin: 0px;
+    width: 448px;
+    height: 98px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#textarea {
+    margin: 0px;
+    width: 448px;
+    height: 98px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+#qanda {
+    padding-left: 35px;
+    padding-right: 35px;
+}
+
+#stuff {
+    margin: 20px;
+    padding-left: 35px;
+    padding-right: 35px;
 }

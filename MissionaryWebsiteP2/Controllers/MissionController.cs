@@ -47,7 +47,7 @@ namespace MissionaryWebsiteP2.Controllers
         {
             MissionQuestions myQuestion = db.MissionQuestion.Find(question_ID);
             myQuestion.answer = answer["answer" + question_ID];
-            var fullname = TempData["firstname"].ToString() + " " + TempData["lastname"].ToString();
+            string fullname = TempData["firstname"].ToString() + " " + TempData["lastname"].ToString();
             myQuestion.user_ID = fullname;
             db.SaveChanges();       
 
@@ -57,13 +57,19 @@ namespace MissionaryWebsiteP2.Controllers
         [HttpPost]
         public ActionResult MissionPage2(FormCollection newQuestion, int mission_ID)
         {
-
-            MissionQuestions newQuestions = new MissionQuestions();
-            newQuestions.question = newQuestion["newQuestion"];
-            newQuestions.mission_ID = mission_ID;
-            db.MissionQuestion.Add(newQuestions);
-            db.SaveChanges();
-
+            TempData["error"] = "";
+            if (newQuestion["newQuestion"] != "")
+            {
+                MissionQuestions newQuestions = new MissionQuestions();
+                newQuestions.question = newQuestion["newQuestion"];
+                newQuestions.mission_ID = mission_ID;
+                db.MissionQuestion.Add(newQuestions);
+                db.SaveChanges();
+            }
+            else
+            {
+                TempData["error"] = "Please type something";
+            }
             return RedirectToAction("MissionPage", new { mission_ID = mission_ID });
         }
     }

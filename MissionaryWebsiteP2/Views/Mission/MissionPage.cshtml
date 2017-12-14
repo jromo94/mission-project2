@@ -39,19 +39,20 @@
         <div class="panel panel-primary">
             <div class="panel-heading panel-primary"></div>
             <div class="panel-body">
-                <p>@item.question</p>
-                <a href="@Url.Content("#hidden" + item.MissionQuestion_ID)" data-toggle="collapse" class="btn btn-primary btn-sm">Reply</a>
+                <div class="row">
+                    <h4 id="qanda">@item.question</h4>
+                    <h4 id="@Url.Content("answer" + item.MissionQuestion_ID)" name="@Url.Content("answer" + item.MissionQuestion_ID)" style=" padding-left: 35px; padding-right: 35px;">@item.answer - @item.user_ID</h4>
+                </div>
+                <a href="@Url.Content("#hidden" + item.MissionQuestion_ID)" data-toggle="collapse" class="btn btn-primary btn-md" id="stuff">Reply</a><br />
                    @using (Html.BeginForm("MissionPage", "Mission", new { answer = Request.Form[@Url.Content("answer" + item.MissionQuestion_ID)], question_ID = item.MissionQuestion_ID }, FormMethod.Post, new { id = @Url.Content("hidden" + item.MissionQuestion_ID), @class = "collapse"}))
-                   {
-                       if (item.answer == "")
-                       {
-                        <textarea id="@Url.Content("answer" + item.MissionQuestion_ID)" name="@Url.Content("answer" + item.MissionQuestion_ID)" placeholder="Write your answer here!"></textarea>
-                       }
-                       else
-                       {
-                        <textarea id="@Url.Content("answer" + item.MissionQuestion_ID)" name="@Url.Content("answer" + item.MissionQuestion_ID)">@item.answer - @item.user_ID</textarea>
-                       }
-                    <input type="submit" value="Submit" />
+                   {                     
+                        <textarea id="@Url.Content("answer" + item.MissionQuestion_ID)" name="@Url.Content("answer" + item.MissionQuestion_ID)" placeholder="Write your answer here!" style=" margin-left: 20px; margin-bottom: 20px; margin-right: 20px;
+                            width: 448px;
+                            height: 98px;
+                            padding-left: 15px;
+                            padding-right: 15px;"></textarea>
+                      
+                    <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
 
                    }
             </div>
@@ -59,16 +60,18 @@
     }
 </div>
 <div class="row">
-    <h4>Questions</h4>
-    <p>
-        Please give us some of the questions you would like to have answered! We love to hear
-        what you are wanting to know more about. Thanks!
-    </p>
-    @using (Html.BeginForm("MissionPage2", "Mission", new { answer = Request.Form["newQuestion"], mission_ID = ViewBag.missionID }, FormMethod.Post))
-    {
-        <textarea id="newQuestion" name="newQuestion" placeholder="Input your question here"></textarea>
-        <br />
-        <input type="submit" value="Submit" />
-    }
-    
+    <div class="col-lg-10" id="qanda">
+        <h3>More Questions</h3>
+        <h4>
+            Please give us some of the questions you would like to have answered! We love to hear
+            what you are wanting to know more about. Thanks!
+        </h4>
+        <h4 style="color:red">@TempData["error"]</h4>
+        @using (Html.BeginForm("MissionPage2", "Mission", new { answer = Request.Form["newQuestion"], mission_ID = ViewBag.missionID }, FormMethod.Post))
+        {
+            <textarea id="newQuestion" name="newQuestion" placeholder="Input your question here"></textarea>
+            <br />
+            <input type="submit" value="Submit" class="btn btn-primary btn-lg"/>
+        }
+    </div>
 </div>
