@@ -335,7 +335,7 @@ namespace MissionaryWebsiteP2.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (loginInfo.Login.LoginProvider == "Google")
+                    if (loginInfo.Login.LoginProvider == "Google")//this pulls the user data from google!
                     {
                         var externalIdentity = AuthenticationManager.GetExternalIdentityAsync(DefaultAuthenticationTypes.ExternalCookie);
 

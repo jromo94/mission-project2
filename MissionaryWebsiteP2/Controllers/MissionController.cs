@@ -19,6 +19,7 @@ namespace MissionaryWebsiteP2.Controllers
             return View();
         }
 
+        //this is the main mission page
         public ActionResult MissionPage(int mission_ID)
         {
 
@@ -42,6 +43,7 @@ namespace MissionaryWebsiteP2.Controllers
             return View(missions);
         }
 
+        //this posts the anwers to the questions to the database and back to the mission page
         [HttpPost]
         public ActionResult MissionPage(FormCollection answer, int? question_ID, int? mission_ID)
         {
@@ -54,6 +56,7 @@ namespace MissionaryWebsiteP2.Controllers
             return RedirectToAction("MissionPage", new { mission_ID = myQuestion.mission_ID });
         }
 
+        //this second post posts a question to the database and then to mission page
         [HttpPost]
         public ActionResult MissionPage2(FormCollection newQuestion, int mission_ID)
         {
